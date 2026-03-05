@@ -10,7 +10,17 @@
 // LOREM
 // ---------------------------------------------------------------------
 // 	PSUEDOCODE:
-// LOREM
+// 1. Get input from keyboard 
+// 	a. read input
+//	b. terminate input
+//
+// 2. Process input, put input in a variable
+// 	a.
+//	a.
+//
+// 3. Output text
+// 
+// 4. Terminate program
 // ---------------------------------------------------------------------
 .global _start	// Provide program starting address 
 
@@ -35,11 +45,17 @@ _start:
 	LDR X1, =szBuffer 	// read() needs buffer pointer in X1 
 	MOV X2, MAX_BYTES 	// max amount of characters to read
 	MOV X8, SYS_read 	// Linux read() system call number 
+	SVC 0				// call Linux to exicute commands
 
 	// -----------------------------------------------------------------
-	// READ KEYBOARD
+	// PROCESS KEYBAORD INPUT
 	// -----------------------------------------------------------------
-	
+
+	// -----------------------------------------------------------------
+	// OUTPUT INPUT
+	// -----------------------------------------------------------------
+
+
 	// -----------------------------------------------------------------
 	// TERMINATE PROGRAM
 	// -----------------------------------------------------------------
