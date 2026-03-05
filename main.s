@@ -47,14 +47,21 @@ _start:
 	MOV X8, SYS_read 	// Linux read() system call number 
 	SVC 0				// call Linux to exicute commands
 
+	// If input not valid - overma	x
+	
 	// -----------------------------------------------------------------
 	// PROCESS KEYBAORD INPUT
 	// -----------------------------------------------------------------
+	
 
 	// -----------------------------------------------------------------
 	// OUTPUT INPUT
 	// -----------------------------------------------------------------
-
+	MOV X0, STDOUT
+	LDR X1, =szBuffer
+	MOV X2, MAX_BYTES
+	MOV X8, SYS_write
+	SVC 0
 
 	// -----------------------------------------------------------------
 	// TERMINATE PROGRAM
