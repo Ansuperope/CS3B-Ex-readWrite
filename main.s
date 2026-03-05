@@ -17,16 +17,37 @@
 // functions
 //.extern funcName
 
-_start: 
+_start:
+	.EQU STDIN,		0	// starndard input
+	.EQU STDOUT,	1	// standard output
+	.EQU SYS_read,	63	// Linux read()
+	.EQU SYS_write, 64	// Linux write()
 	.EQU SYS_exit,  93	// exit() supervisor call code 
     
+	.EQU MAX_BYTES, 10	// max bytes to read()
+
 	.text  // code section 
 
-	// terminate the program 
+	// -----------------------------------------------------------------
+	// READ KEYBOARD
+	// -----------------------------------------------------------------
+	MOV X0, STDIN  		// file descriptor for stdin (keyboard) 
+	LDR X1, =szBuffer 	// read() needs buffer pointer in X1 
+	MOV X2, MAX_BYTES 	// max amount of characters to read
+	MOV X8, SYS_read 	// Linux read() system call number 
+
+	// -----------------------------------------------------------------
+	// READ KEYBOARD
+	// -----------------------------------------------------------------
+	
+	// -----------------------------------------------------------------
+	// TERMINATE PROGRAM
+	// -----------------------------------------------------------------
 	MOV X0, #0			// set return code to 0, all good 
 	MOV X8, #SYS_exit	// set exit() supervisor call code 
 	SVC 0				// call Linux to exit 
 
 	.data	// data section
+szBuffer:	.skip	11	// string with size 11 (includeing null)
 
 .end	// end of program, optional but good practice 
