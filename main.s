@@ -21,6 +21,7 @@
 // 3. Output text
 // 
 // 4. Terminate program
+//
 // ---------------------------------------------------------------------
 .global _start	// Provide program starting address 
 
@@ -48,12 +49,16 @@ _start:
 	SVC 0				// call Linux to exicute commands
 
 	// If input not valid exit (overflow)
+	CMP  X0, XZR
+	B.LT done
 	
 	// -----------------------------------------------------------------
 	// PROCESS INPUT
 	//	1.  
 	// 	2. make string end will null "/n"
 	// -----------------------------------------------------------------
+	LDR X1, =szBuffer	// getline
+	STRB WZR, [X1, X0]	// set byte one paste stroed string to null
 
 	// -----------------------------------------------------------------
 	// OUTPUT INPUT
@@ -67,6 +72,7 @@ _start:
 	// -----------------------------------------------------------------
 	// TERMINATE PROGRAM
 	// -----------------------------------------------------------------
+done: 
 	MOV X0, #0			// set return code to 0, all good 
 	MOV X8, #SYS_exit	// set exit() supervisor call code 
 	SVC 0				// call Linux to exit 
